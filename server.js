@@ -1,10 +1,15 @@
+// Require Express module as express
 const express = require('express');
 
-
+// Set up the application to use the Express middleware for routing
 const app = express();
+
+// Tell the application to use the environmental variable port if one is available, otherwise use the default(3001)
 const PORT = process.env.PORT || 3001;
 
+// Set up the application to use the public directory for static files
 app.use(express.static('public'));
 
-
+// Tell the application to listen on port 3001, unless a port as an environment variable is specified
 app.listen(PORT, function() {console.log(`Express server listening on port: ${PORT}`);});
+
