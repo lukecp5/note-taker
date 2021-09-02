@@ -1,11 +1,11 @@
 // Require dependencies for the application
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const db = require('./db/db.json');
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
+const db = require("./db/db.json");
 
-const apiRoutes = require('./routes/apiRoutes')
-const htmlRoutes = require('./routes/htmlRoutes')
+const apiRoutes = require("./routes/apiRoutes");
+// const htmlRoutes = require("./routes/htmlRoutes.js");
 // Set up the application to use the Express middleware for routing
 const app = express();
 
@@ -13,12 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Set up the application to use the public directory for static files
-app.use(express.static('public'));
-app.use('/api', apiRoutes);
-
-
+app.use(express.static("public"));
+app.use("/api", apiRoutes);
 
 // Tell the application to listen on port 3001, unless a port as an environment variable is specified
-app.listen(PORT, function() {console.log(`Express server listening on port: ${PORT}`);});
-
-
+app.listen(PORT, function () {
+  console.log(`Express server listening on port: ${PORT}`);
+});
