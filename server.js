@@ -8,7 +8,8 @@ const apiRoutes = require("./routes/apiRoutes");
 const htmlRoutes = require("./routes/htmlRoutes");
 // Set up the application to use the Express middleware for routing
 const app = express();
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 // Tell the application to use the environmental variable port if one is available, otherwise use the default(3001)
 const PORT = process.env.PORT || 3001;
 
