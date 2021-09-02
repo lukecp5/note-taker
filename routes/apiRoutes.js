@@ -22,7 +22,7 @@ router.post("/notes", (req, res)=>{
       database.push(note);
 
       // Write the db.json file again.
-      // fs.writeFile(jsonFilePath, JSON.stringify(database), function (err) {(err)? console.log(err):console.log("Successfully written") });
+      fs.writeFile(jsonFilePath, JSON.stringify(database), function (err) {(err)? console.log(err):console.log("Successfully written") });
 
       // Gives back the response, which is the user's new note. 
       res.json(req.body);
