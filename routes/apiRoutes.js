@@ -19,7 +19,7 @@ router.post("/notes", (req, res)=>{
       // This assigns an ID to the newNote, It will be a random number between 1 and 100
       // We push it to db.json.
 
-      database.push(newNote)
+      database.push(note);
 
       // Write the db.json file again.
       // fs.writeFile(jsonFilePath, JSON.stringify(database), function (err) {(err)? console.log(err):console.log("Successfully written") });
