@@ -1,5 +1,8 @@
-// Require Express module as express
+// Require dependencies for the application
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const db = require('./db/db.json');
 
 // Set up the application to use the Express middleware for routing
 const app = express();
@@ -12,4 +15,5 @@ app.use(express.static('public'));
 
 // Tell the application to listen on port 3001, unless a port as an environment variable is specified
 app.listen(PORT, function() {console.log(`Express server listening on port: ${PORT}`);});
+
 
