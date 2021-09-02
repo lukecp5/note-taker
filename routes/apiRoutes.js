@@ -2,14 +2,14 @@ const router = require("express").Router();
 
 router.get("/notes", (req, res) => {
       res.send('Hello World!');
-      //   store
-//   .getNotes()
-//   .then((notes) => {
-//     return res.json(notes);
-//   })
-//   .catch(
-//         (err) => { res.status(500).json(err)}
-//         )
+      store
+            .getNotes()
+            .then((notes) => {
+    return res.json(notes);
+  })
+  .catch(
+        (err) => { res.status(500).json(err)}
+        )
 });
 
 
