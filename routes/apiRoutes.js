@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const database = require("../db/db");
+const db = require("../db/db");
 const fs = require("fs");
 const path = require("path");
 const uuid = require("uuid");
@@ -7,11 +7,21 @@ const uuid = require("uuid");
 router.get("/notes", (req, res) => {
   // Grab the notes list (this should be updated for every new note and deleted note.)
   console.info(`Retrieving notes from the database...`);
-  res.json(database);
+  res.json(db);
 });
 
 router.delete("/api/notes/:id", (req, res) => {
-res.json(req);
+  for(i = 0; i < db.length; i++) {
+    if(db[i].id === req.params.id) {
+      db.splice(i,1);  
+      break;
+    }else{
+      return "Error: Note not found!"
+    }
+  }
+  
+  console.info(`Deleting note ${req.body}`);
+  res.json(req.body.title);
 });
 
 router.post("/notes", (req, res)=>{
@@ -25,10 +35,10 @@ router.post("/notes", (req, res)=>{
       // This assigns an ID to the newNote, It will be a random number between 1 and 100
       // We push it to db.json.
 
-      database.push(note);
+      db.push(note);
 
       // Write the db.json file again.
-      fs.writeFile(jsonFilePath, JSON.stringify(database), function (err) {(err)? console.log(err):console.log("Your note has been saved to the database."); });
+      fs.writeFile(jsonFilePath, JSON.stringify(db), function (err) {(err)? console.log(err):console.log("Your note has been saved to the database."); });
 
       // Gives back the response, which is the user's new note. 
       res.json(note);
