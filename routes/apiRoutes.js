@@ -19,7 +19,12 @@ router.delete("/api/notes/:id", (req, res) => {
       return "Error: Note not found!"
     }
   }
-  
+  fs.writeFileSync(jsonFilePath, JSON.stringify(db), (err)=>
+  {
+    console.info(`Something went wrong while trying to delete the note with ID: ${req.params.id}`);
+    console.error(err);
+  })
+
   console.info(`Deleting note ${req.body}`);
   res.json(req.body.title);
 });
