@@ -2,7 +2,7 @@ const router = require("express").Router();
 const database = require("../db/db");
 const fs = require("fs");
 const path = require("path");
-
+const uuid = require("uuid");
 
 router.get("/notes", (req, res) => {
   // Grab the notes list (this should be updated for every new note and deleted note.)
@@ -10,11 +10,17 @@ router.get("/notes", (req, res) => {
   res.json(database);
 });
 
+router.delete("/api/notes/:id", (req, res) => {
+res.json(req);
+});
+
 router.post("/notes", (req, res)=>{
-      let jsonFilePath = path.join(__dirname, "/db/db.json");
+      let jsonFilePath = path.join(__dirname, "../db/db.json");
 
       let note = req.body;
-      note.id = Math.floor(Math.random()*1000);
+      note.id = uuid.v4();
+      console.log(`The note's ID is: ${note.id}`);
+      // note.id = Math.floor(Math.random()*1000);
       console.info(`Your new note titled: ${note.title} will be saved to the database with an id of ${note.id}`);   
       // This assigns an ID to the newNote, It will be a random number between 1 and 100
       // We push it to db.json.
