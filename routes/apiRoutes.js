@@ -10,23 +10,25 @@ router.get("/notes", (req, res) => {
   res.json(db);
 });
 
-router.delete("/api/notes/:id", (req, res) => {
+router.delete("/notes/:id", (req, res) => {
+  let jsonPath = path.join(__dirname, "../db/db.json");
   for(i = 0; i < db.length; i++) {
-    if(db[i].id === req.params.id) {
+    if(db[i].id == req.params.id) {
       db.splice(i,1);  
       break;
     }else{
       return "Error: Note not found!"
     }
   }
-  fs.writeFileSync(jsonFilePath, JSON.stringify(db), (err)=>
+  
+  fs.writeFileSync(jsonPath, JSON.stringify(db), (err)=>
   {
     console.info(`Something went wrong while trying to delete the note with ID: ${req.params.id}`);
     console.error(err);
   })
 
   console.info(`Deleting note ${req.body}`);
-  res.json(req.body.title);
+  res.json(db);
 });
 
 router.post("/notes", (req, res)=>{
