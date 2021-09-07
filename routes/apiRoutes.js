@@ -5,11 +5,12 @@ const path = require("path");
 const uuid = require("uuid");
 
 router.get("/notes", (req, res) => {
-  // Grab the notes list (this should be updated for every new note and deleted note.)
+  // Grab the notes list. This happens on startup, after the user has created a note, and after a user has deleted a note.
   console.info(`Retrieving notes from the database...`);
   res.json(db);
 });
 
+// Uses query parameters to find search through the db.json to find the note id that matches the query. Once if finds that note, it will slice the note from the array of notes and return the new list of notes.
 router.delete("/notes/:id", (req, res) => {
   let jsonPath = path.join(__dirname, "../db/db.json");
   for(i = 0; i < db.length; i++) {
@@ -20,7 +21,7 @@ router.delete("/notes/:id", (req, res) => {
       return "Error: Note not found!"
     }
   }
-  
+  // Write the newly updated notes to the db.json file. 
   fs.writeFileSync(jsonPath, JSON.stringify(db), (err)=>
   {
     console.info(`Something went wrong while trying to delete the note with ID: ${req.params.id}`);
